@@ -9,3 +9,4 @@
    1. Run `make run_training`
 1. Для запуска сервсиса
    1. Run `poetry run python -m src.run_streamlit`
+
