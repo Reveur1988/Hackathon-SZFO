@@ -6,8 +6,6 @@ import streamlit as st
 from numpy.typing import NDArray
 from ultralytics import YOLO
 
-from anomalib.deploy import TorchInferencer
-
 from pathlib import Path
 
 import xml.etree.ElementTree as ET
@@ -92,13 +90,13 @@ def save_boxes_to_xml(image_path, boxes):
         # Добавляем координаты <bndbox>
         bndbox = ET.SubElement(obj, "bndbox")
         xmin = ET.SubElement(bndbox, "xmin")
-        xmin.text = str(int(box[2]))
+        xmin.text = str(int(box[0]))
         ymin = ET.SubElement(bndbox, "ymin")
-        ymin.text = str(int(box[3]))
+        ymin.text = str(int(box[1]))
         xmax = ET.SubElement(bndbox, "xmax")
-        xmax.text = str(int(box[0]))
+        xmax.text = str(int(box[2]))
         ymax = ET.SubElement(bndbox, "ymax")
-        ymax.text = str(int(box[1]))
+        ymax.text = str(int(box[3]))
 
     # Преобразуем структуру в XML и сохраняем в файл
     tree = ET.ElementTree(annotation)
@@ -110,84 +108,6 @@ def file_selector(folder_path="./data"):
 
     selected_filename = st.selectbox("Select a file", filenames)
     return os.path.join(folder_path, selected_filename)
-
-
-@st.cache_resource
-def get_inferencer(path: str = "weights/torch/model.pt", device: str = "gpu"):
-    if os.path.exists(path):
-        # Если файл модели существует, используем реальный TorchInferencer
-        inferencer = TorchInferencer(
-            path=path,
-            device=device,
-        )
-        return inferencer
-    else:
-        import numpy as np
-
-        # Если файла модели нет, выводим предупреждение и используем заглушку
-        st.warning(f"Модель не найдена по пути: {path}. Используется заглушка.")
-
-        # Заглушка для инференсера
-        class MockInferencer:
-            def predict(self, image):
-                # Имитируем результат предсказания
-                class MockPredictions:
-                    def __init__(self):
-                        self.image = (np.random.rand(224, 224, 3) * 255).astype(
-                            np.uint8,
-                        )  # Фиктивное изображение
-                        self.pred_boxes = [
-                            [30, 40, 150, 200],  # Имитируем координаты коробок
-                            [80, 100, 180, 220],
-                        ]
-                        self.anomaly_map = np.random.rand(
-                            224,
-                            224,
-                        )  # Имитируем карту аномалий
-                        self.heat_map = np.random.rand(
-                            224,
-                            224,
-                        )  # Имитируем тепловую карту
-
-                # Возвращаем фальшивые предсказания
-                return MockPredictions()
-
-        return MockInferencer()
-
-
-def get_stats(
-    boxes: List[List[int]],
-    scores: List[float],
-    classes: List[str],
-    threshold: float = 0.5,
-) -> pd.DataFrame:
-    """
-    Returns the count of each anomaly class detected based on a score threshold.
-
-    :param boxes: A list of bounding boxes, each as [x_min, y_min, x_max, y_max].
-    :param scores: A list of confidence scores for each bounding box.
-    :param classes: A list of class names corresponding to each detected anomaly.
-    :param threshold: The threshold above which a detection is considered valid.
-    :return: A DataFrame with the count of each class.
-    """
-    # Проверка на соответствие длины списков
-    if len(boxes) != len(scores) or len(scores) != len(classes):
-        raise ValueError("The lengths of boxes, scores, and classes must be the same.")
-
-    # Фильтруем аномалии по заданному порогу
-    filtered_data = [
-        (cls, score) for cls, score in zip(classes, scores) if score >= threshold
-    ]
-
-    # Извлекаем классы, прошедшие порог
-    filtered_classes = [cls for cls, _ in filtered_data]
-
-    # Подсчитываем количество каждого класса
-    class_counts = pd.Series(filtered_classes).value_counts().reset_index()
-    class_counts.columns = ["class_name", "count"]
-
-    return class_counts
-
 
 def detect_anomalies(
     image_files: list,
@@ -207,7 +127,7 @@ def detect_anomalies(
 
     predictions = inferencer(image_files)
     # original_images: NDArray = predictions.results
-    boxes: list[int] = [x.boxes.xywh.cpu().numpy() for x in predictions]
+    boxes: list[int] = [x.boxes.xyxy.cpu().numpy() for x in predictions]
 
     # Сохранение боксов для каждого изображения
     for i, image_path in enumerate(image_files):
