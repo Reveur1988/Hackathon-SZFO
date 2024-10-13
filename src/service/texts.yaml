@@ -1,0 +1,100 @@
+welcome:
+  rus: "Добро пожаловать в сервис детекции аномалий на фотографиях ноутбуков!"
+  eng: "Welcome to the Laptop Anomaly Detection Service!"
+  zh: "欢迎使用笔记本电脑异常检测服务！"
+instruction_container_1:
+  rus: "Пожалуйста, добавьте серийные номера и привяжите фотографии к каждому номеру."
+  eng: "Please add serial numbers and attach photos to each serial number."
+  zh: "请添加序列号并为每个序列号连接相关的照片。"
+instruction_container_2:
+  rus: "Просмотрите загруженные данные и убедитесь, что все фотографии корректны."
+  eng: "Review the uploaded data and ensure all photos are correct."
+  zh: "查看上传的数据并确保所有照片正确。"
+serial_number_label:
+  rus: "Введите серийный номер ноутбука"
+  eng: "Enter laptop serial number"
+  zh: "输入笔记本电脑的序列号"
+upload_label:
+  rus: "Загрузите фотографии для серийного номера"
+  eng: "Upload photos for the serial number"
+  zh: "上传序列号的照片"
+add_button:
+  rus: "Добавить"
+  eng: "Add"
+  zh: "添加"
+final_relabel_button:
+  rus: "Переразметить"
+  eng: "Relabel"
+  zh: "提交"
+final_report_button:
+  rus: "Создать отчет"
+  eng: "Submit"
+  zh: "提交"
+update_serial_label:
+  rus: "Обновите серийный номер"
+  eng: "Update serial number"
+  zh: "更新序列号"
+upload_additional_photos:
+  rus: "Загрузите дополнительные фотографии"
+  eng: "Upload additional photos"
+  zh: "上传额外照片"
+update_button:
+  rus: "Обновить фото"
+  eng: "Update Photo"
+  zh: "更新照片"
+data_added:
+  rus: "Данные добавлены!"
+  eng: "Data added!"
+  zh: "数据已添加！"
+please_add_serial_and_photos:
+  rus: "Пожалуйста, введите серийный номер и загрузите фотографии."
+  eng: "Please enter a serial number and upload photos."
+  zh: "请输入序列号并上传照片。"
+photos_updated:
+  rus: "Фотографии обновлены!"
+  eng: "Photos updated!"
+  zh: "照片已更新！"
+serial_number_updated:
+  rus: "Серийный номер обновлен!"
+  eng: "Serial number updated!"
+  zh: "序列号已更新！"
+data_successfully_submitted:
+  rus: "Данные успешно отправлены!"
+  eng: "Data successfully submitted!"
+  zh: "数据提交成功！"
+please_add_serial_and_photos_warning:
+  rus: "Пожалуйста, добавьте серийные номера и фотографии."
+  eng: "Please add serial numbers and photos."
+  zh: "请添加序列号和照片。"
+serial_number:
+  rus: "Серийный номер"
+  eng: "Serial number"
+  zh: "序列号"
+no_data_found:
+  rus: "Данные не найдены."
+  eng: "No data found."
+  zh: "未找到数据。"
+dead_pixel:
+  rus: "Битый пиксель"
+  eng: "Dead pixel"
+  zh: "坏点"
+scratch:
+  rus: "Царапина"
+  eng: "Scratch"
+  zh: "划痕"
+missing_screw:
+  rus: "Отсутствует винт"
+  eng: "Missing screw"
+  zh: "缺少螺丝"
+keyboard_damage:
+  rus: "Повреждение клавиатуры"
+  eng: "Keyboard damage"
+  zh: "键盘损坏"
+broken_lock:
+  rus: "Сломан замок"
+  eng: "Broken lock"
+  zh: "锁损坏"
+final_report:
+  rus: "Финальный отчет"
+  eng: "Final report"
+  zh: "最终报告"

@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "SZFO"
+version = "0.1.0"
+description = "Hackathon in North-Western Federal District"
+authors = ["nikonovone <nikonov.nikita@hotmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.26.4"
+pre-commit = "^4.0.0"
+pyvips = "^2.2.3"
+lightning = "^2.4.0"
+pydantic = "^2.9.2"
+omegaconf = "^2.3.0"
+clearml = "^1.16.4"
+albumentations = "^1.4.16"
+torchinfo = "^1.8.0"
+scikit-learn = "^1.5.2"
+rich = "^13.8.1"
+torch = {version = "^2.4.1+cu124", source = "pytorch_gpu"}
+torchvision = {version = "^0.19.1+cu124", source = "pytorch_gpu"}
+tensorboard = "^2.18.0"
+anomalib = "^1.1.1"
+streamlit = "^1.39.0"
+imgaug = "^0.4.0"
+kornia = "^0.7.3"
+streamlit-img-label = "^0.1.1"
+pascal-voc-writer = "^0.1.4"
+
+[[tool.poetry.source]]
+name = "pytorch_gpu"
+url = "https://download.pytorch.org/whl/cu124"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.group.notebooks]
+optional = true
+
+[tool.poetry.group.notebooks.dependencies]
+matplotlib = "^3.7.1"
+ipywidgets = "^8.0.6"
+ipykernel = "^6.29.5"
+ipyplot = "^1.1.1"
